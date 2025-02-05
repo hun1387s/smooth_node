@@ -17,9 +17,6 @@ class SmoothNode(mpx.MPxDeformerNode):
         super(SmoothNode, self).__init__()
 
     def deform(self, data_block, geo_iter, matrix, multi_index):
-        print("TODO: deform()")
-        print("data_block", data_block)
-        print("geo_iter", geo_iter)
         envelope = data_block.inputValue(self.envelope).asFloat()
 
         if envelope == 0:
@@ -32,19 +29,14 @@ class SmoothNode(mpx.MPxDeformerNode):
         meshMObject = inputGeomHandle.asMesh()
 
         meshFn = om.MFnMesh(meshMObject)
-        print("meshFn", meshFn)
 
         vertices = om.MPointArray()
         meshFn.getPoints(vertices, om.MSpace.kObject)
-        print("vertices", vertices)
 
         geo_iter.reset()
         while not geo_iter.isDone():
             index = geo_iter.index()
             meshFn.object()
-            # self.get_dagPath_from_mfMesh(meshFn)
-            # vtx_pos = self.get_connected_vertices_positions(self.get_dagPath_from_mfMesh(meshFn), index)
-            # print("vtx_pos", vtx_pos)
 
             geo_iter.next()
 
